@@ -33,7 +33,13 @@ class Cell
     end
   end
 
-  def render
-    @status
+  def render(default = false)
+    if default == true && @ship
+      @status = "S"
+    elsif @ship && @ship.sunk?
+      @status = "X"
+    else
+      @status
+    end
   end
 end
