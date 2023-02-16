@@ -27,10 +27,13 @@ class Cell
     @fired_upon = true
     if @ship
       @ship.health -= 1
+      @status = "H"
+    else
+      @status = "M"
     end
   end
 
   def render
-
+    @status
   end
 end
