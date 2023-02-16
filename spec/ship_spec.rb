@@ -19,4 +19,23 @@ RSpec.describe Ship do
       expect(@cruiser.sunk?).to be false
     end
   end
+
+  describe '#hit' do
+    it 'can determine if a ship was hit' do
+      @cruiser.hit
+
+      expect(@cruiser.health).to eq(2)
+      expect(@cruiser.sunk?).to be false
+
+      @cruiser.hit
+
+      expect(@cruiser.health).to eq(1)
+      expect(@cruiser.sunk?).to be false
+
+      @cruiser.hit
+
+      expect(@cruiser.health).to eq(0)
+      expect(@cruiser.sunk?).to be true
+    end
+  end
 end
