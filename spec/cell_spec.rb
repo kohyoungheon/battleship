@@ -8,6 +8,7 @@ describe '#initialize' do
     expect(cell.coordinate).to eq("A1")
     expect(cell.ship).to eq(nil)
     expect(cell.fired_upon).to eq(false)
+    expect(cell.status).to eq('.')
   end
 
   describe '#empty?' do
@@ -36,6 +37,22 @@ describe '#initialize' do
       cell = Cell.new("A1")
       
       expect(cell.fired_upon?).to eq(false)
+    end
+  end
+
+  describe 'fire_upon' do
+    it 'fires upon cell' do
+      cell = Cell.new("A1")
+      cruiser = Ship.new("Cruiser", 3)
+      cell.place_ship(cruiser)
+
+      expect(cell.fired_upon?).to eq(false)
+      expect(cell.ship.health).to eq(3)
+
+      cell.fire_upon
+
+      expect(cell.fired_upon?).to eq(true)
+      expect(cell.ship.health).to eq(2)
     end
   end
 end
