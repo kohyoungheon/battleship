@@ -30,4 +30,12 @@ describe '#initialize' do
       expect(cell.ship).to eq(cruiser)
     end
   end
+
+  describe '#fired_upon?' do
+    it 'returns boolean whether cell is fired upon' do
+      cell = Cell.new("A1")
+      
+      expect(cell.fired_upon?).to eq(false)
+    end
+  end
 end
