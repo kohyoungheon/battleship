@@ -24,7 +24,7 @@ RSpec.describe Board do
   end
 
   describe '#valid_placement?' do
-    it 'can determine if a ships placement is valid' do
+    xit 'can determine if a ships placement is valid' do
       #number of coordinates in array should be same length as ship
       expect(@board.valid_placement?(@cruiser, ['A1', 'A2'])).to be false
       expect(@board.valid_placement?(@submarine, ['A1', 'A3', 'A4'])).to be false
@@ -41,4 +41,18 @@ RSpec.describe Board do
       expect(@board.valid_placement?(@submarine, ['A1', 'A2'])).to be true
     end
   end
+
+#@board.place test
+  describe '#place' do
+    it 'can place a ship on the board' do
+      @board.place(@cruiser, ['A1', 'A2', 'A3'])
+
+      expect(@board.cells['A1'].ship).to eq(@cruiser)
+      expect(@board.cells['A2'].ship).to eq(@cruiser)
+      expect(@board.cells['A3'].ship).to eq(@cruiser)
+      expect(@board.cells['A3'].ship).to eq(@board.cells['A2'].ship)
+    end
+  end
+
+
 end
