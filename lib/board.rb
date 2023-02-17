@@ -1,5 +1,5 @@
 class Board
-  
+  attr_reader :cells
   def initialize
     @cells = {
       'A1' => Cell.new('A1'),
@@ -34,6 +34,12 @@ class Board
   def coordinate_numbers(coordinates)
     coordinates.map do |coordinate|
       coordinate[1].to_i
+    end
+  end
+
+  def place(ship, coordinates)
+    coordinates.each do |coordinate|
+      @cells[coordinate].place_ship(ship)
     end
   end
 end
