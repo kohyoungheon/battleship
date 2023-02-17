@@ -42,7 +42,7 @@ RSpec.describe Board do
     end
   end
 
-#@board.place test
+  #@board.place test
   describe '#place' do
     it 'can place a ship on the board' do
       @board.place(@cruiser, ['A1', 'A2', 'A3'])
@@ -54,5 +54,21 @@ RSpec.describe Board do
     end
   end
 
+  #overlap? test
+  it 'can determine if ships are overlapping' do
+    @board.place(@cruiser, ['A1', 'A2', 'A3'])
 
+    expect(@board.valid_placement?(@submarine, ['A1', 'B1'])).to be false
+  end
+  
+  describe '#render' do
+    it 'can render' do
+      @board.place(@cruiser, ['A1', 'A2', 'A3'])
+      board_1 = "  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n"
+      board_2 = "  1 2 3 4 \nA S S S . \nB . . . . \nC . . . . \nD . . . . \n"
+
+      expect(@board.render).to eq(board_1)
+      expect(@board.render(true)).to eq(board_2)
+    end
+  end
 end
