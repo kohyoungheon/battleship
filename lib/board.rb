@@ -36,4 +36,28 @@ class Board
       coordinate[1].to_i
     end
   end
+  
+  #board.valid_placement?(cruiser, ["A1", "B1", "C1"])
+  def valid_placement?(ship,coord_array)
+    if ship.length != coord_array.length
+      return false
+    end
+    first_coord_char_ord = coord_array[0][0].ord #=> 65
+    first_coord_number_ord = coord_array[0][1].ord #=> 1
+
+#For cruisers with 3 length only
+#checks if letters are same (across))
+    if (coord_array[1][0].ord ==  first_coord_char_ord + 1) && (coord_array[2][0] == first_coord_char_ord + 2)
+      if (first_coord_number_ord == coord_array[1][1]) && (first_coord_number_ord == coord_array[2][1])
+        return true
+      end
+    end
+#checks if numbers are same (down)
+    if (coord_array[1][1].ord == first_coord_number_ord) && (coord_array[2][1].ord == first_coord_number_ord)
+      if (first_coord_char_ord == (coord_array[1][0].ord-1)) && (first_coord_char_ord == (coord_array[2][0].ord-2))
+        return true
+      end
+    end
+    false
+  end
 end
