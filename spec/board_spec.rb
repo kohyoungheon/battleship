@@ -8,7 +8,7 @@ RSpec.describe Board do
 
   describe '#initialize' do
     it 'can initialize' do
-      expect(board).to be_an_instance_of(Board)
+      expect(@board).to be_an_instance_of(Board)
     end
   end
 end
