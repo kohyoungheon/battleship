@@ -24,4 +24,16 @@ class Board
   def valid_coordinate?(cell)
     @cells.keys.any?(cell)
   end
+
+  def coordinate_letters(coordinates)
+    coordinates.map do |coordinate|
+      coordinate[0]
+    end
+  end
+
+  def coordinate_numbers(coordinates)
+    coordinates.map do |coordinate|
+      coordinate[1].to_i
+    end
+  end
 end
