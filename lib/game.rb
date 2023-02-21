@@ -29,11 +29,11 @@ class Game
     def computer_fire(cell)
       @player.board.cells[cell].fire_upon
       if @player.board.cells[cell].ship == nil
-        puts 'My shot on #{cell} was a miss.'
+        puts 'Computer: "My shot on #{cell} was a miss."'
       elsif @player.board.cells[cell].ship != nil
-        puts 'My shot on #{cell} was a hit.'
+        puts 'Computer: "My shot on #{cell} was a hit."'
         if @player.board.cells[cell].ship.sunk?
-          puts 'I sunk your #{@player.cells[cell].ship.name}!'
+          puts 'Computer: "I sunk your #{@player.cells[cell].ship.name}!"'
         end
       end
     end
