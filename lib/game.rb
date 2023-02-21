@@ -35,7 +35,7 @@ class Game
         @player.board.place(user_cruiser, user_placement)
         puts @player.board.render(true)
       else
-        puts "Invalid placement."
+        puts "Invalid placement. Please try again:"
         return player_place_cruiser
       end
     end
@@ -49,9 +49,19 @@ class Game
         @player.board.place(user_sub, user_placement2)
         puts @player.board.render(true)
       else
-       puts "Invalid placement."
+       puts "Invalid placement. Please try again:"
       return player_place_sub
       end
+    end
+
+    def turn
+      puts "******************************************"
+      puts "THE GAME IS NOW STARTING!"
+      puts "******************************************"
+      puts "=============COMPUTER BOARD============="
+      puts @computer.board.render
+      puts "==============PLAYER BOARD=============="
+      puts @player.board.render
     end
 
   def play
@@ -67,6 +77,7 @@ class Game
     player_place_cruiser
     player_place_sub
 
+    turn
   end
 
 end
