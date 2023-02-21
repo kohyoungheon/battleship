@@ -33,7 +33,7 @@ class Game
       elsif @player.board.cells[cell].ship != nil
         puts 'My shot on #{cell} was a hit.'
         if @player.board.cells[cell].ship.sunk?
-          puts 'I sunker your #{@player.cells[cell].ship.name}!'
+          puts 'I sunk your #{@player.cells[cell].ship.name}!'
         end
       end
     end
