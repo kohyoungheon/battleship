@@ -54,14 +54,19 @@ class Game
       end
     end
 
-    def turn
-      puts "******************************************"
-      puts "THE GAME IS NOW STARTING!"
-      puts "******************************************"
-      puts "=============COMPUTER BOARD============="
-      puts @computer.board.render
-      puts "==============PLAYER BOARD=============="
-      puts @player.board.render
+    def player_turn
+      user_fired = gets.chomp.upcase.strip
+      if @computer.board.valid_coordinate?(user_fired)
+        @computer.board.cells[user_fired].fire_upon
+        
+      else
+        puts "Please enter a valid coordinate."
+        return turn
+      end
+    end
+
+    def computer_turn
+
     end
 
   def play
@@ -77,7 +82,17 @@ class Game
     player_place_cruiser
     player_place_sub
 
-    turn
+    puts "******************************************"
+    puts "THE GAME IS NOW STARTING!"
+    puts "******************************************"
+    puts "=============COMPUTER BOARD============="
+    puts @computer.board.render
+    puts "==============PLAYER BOARD=============="
+    puts @player.board.render
+    puts "Where would you like to fire?"
+
+    player_turn
+    computer_turn
   end
 
 end
