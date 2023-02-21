@@ -68,8 +68,8 @@ class Board
     end
 
     
-    first_coord_char_ord = coord_array[0][0].ord #=> 65
-    first_coord_number_ord = coord_array[0][1].to_i #=> 1
+    first_coord_char_ord = coord_array[0][0].ord
+    first_coord_number_ord = coord_array[0][1].to_i
     if ship.length == 3
       #Checks if letters match and numbers are consecutive
       if (first_coord_char_ord == coord_array[1][0].ord) && (first_coord_char_ord == coord_array[2][0].ord)
