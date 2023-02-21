@@ -24,7 +24,7 @@ RSpec.describe Board do
   end
 
   describe '#valid_placement?' do
-    xit 'can determine if a ships placement is valid' do
+    it 'can determine if a ships placement is valid' do
       #number of coordinates in array should be same length as ship
       expect(@board.valid_placement?(@cruiser, ['A1', 'A2'])).to be false
       expect(@board.valid_placement?(@submarine, ['A1', 'A3', 'A4'])).to be false
@@ -58,10 +58,10 @@ RSpec.describe Board do
   end
 
   #overlap? test
-  xit 'can determine if ships are overlapping' do
+  it 'can determine if ships are overlapping' do
     @board.place(@cruiser, ['A1', 'A2', 'A3'])
-
-    expect(@board.valid_placement?(@submarine, ['A1', 'B1'])).to be false
+    valid = @board.valid_placement?(@submarine, ["A1", "B1"])
+    expect(valid).to eq(false)
   end
   
   describe '#render' do
