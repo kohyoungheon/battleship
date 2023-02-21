@@ -34,7 +34,9 @@ class Cell
   end
 
   def render(default = false)
-    if default == true && @ship
+    if default == true && @fired_upon && @ship && (@ship.sunk? == false)
+      @status = "H"
+    elsif default == true && @ship
       @status = "S"
     elsif @ship && @ship.sunk?
       @status = "X"

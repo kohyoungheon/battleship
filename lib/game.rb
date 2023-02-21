@@ -30,18 +30,19 @@ class Game
     def computer_fire(cell)
       @player.board.cells[cell].fire_upon
       if @player.board.cells[cell].ship == nil
-        puts 'Computer: "My shot on #{cell} was a miss."'
+        puts "Computer: 'My shot on #{cell} was a miss.'"
       elsif @player.board.cells[cell].ship != nil
-        puts 'Computer: "My shot on #{cell} was a hit."'
+        puts "Computer: 'My shot on #{cell} was a hit.'"
         if @player.board.cells[cell].ship.sunk?
-          puts 'Computer: "I sunk your #{@player.cells[cell].ship.name}!"'
+          puts "Computer: 'I sunk your #{@player.cells[cell].ship.name}!'"
         end
       end
     end
   
-    def comp_picks_cell
+    def computer_turn
+      # require 'pry'; binding.pry
       cell = @player.board.cells.values.sample(1)
-      until cell(0).fire_upon? == false do
+      until cell[0].fired_upon? == false do
         cell = @player.board.values.sample(1)
       end
       computer_fire(cell[0].coordinate)
@@ -94,17 +95,17 @@ class Game
       user_fired = gets.chomp.upcase.strip
       if @computer.board.valid_coordinate?(user_fired)
         @computer.board.cells[user_fired].fire_upon
+        if @computer.board.cells[user_fired].ship
+          puts "You got a hit!"
+        else
+          puts "You missed!"
+        end
         
       else
         puts "Please enter a valid coordinate."
         return turn
       end
     end
-
-    def computer_turn
-
-    end
-
 
   def play
     comp_cruiser = Ship.new("Cruiser",3)
@@ -128,8 +129,21 @@ class Game
     puts @player.board.render
     puts "Where would you like to fire?"
 
+
     player_turn
     computer_turn
-  end
 
+    puts @computer.board.render
+    puts @player.board.render(true)
+
+    player_turn
+    computer_turn
+    puts @computer.board.render
+    puts @player.board.render(true)
+    
+    player_turn
+    computer_turn
+    puts @computer.board.render
+    puts @player.board.render(true)
+  end
 end
