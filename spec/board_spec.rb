@@ -24,7 +24,7 @@ RSpec.describe Board do
   end
 
   describe '#valid_placement?' do
-    xit 'can determine if a ships placement is valid' do
+    it 'can determine if a ships placement is valid' do
       #number of coordinates in array should be same length as ship
       expect(@board.valid_placement?(@cruiser, ['A1', 'A2'])).to be false
       expect(@board.valid_placement?(@submarine, ['A1', 'A3', 'A4'])).to be false
@@ -37,10 +37,11 @@ RSpec.describe Board do
       expect(@board.valid_placement?(@cruiser, ['A1', 'B2', 'C3'])).to be false
       expect(@board.valid_placement?(@submarine, ['C2', 'D3'])).to be false
       #below should be valid if above passes
-      expect(@board.valid_placement?(@cruiser, ['B1', 'C1', 'D1'])).to be true
-      expect(@board.valid_placement?(@submarine, ['A1', 'A2'])).to be true
-      expect(@board.valid_placement?(@submarine, ['B1', 'B2'])).to be true
-      expect(@board.valid_placement?(@submarine, ['B3', 'C3'])).to be true
+      expect(@board.valid_placement?(@cruiser, ['A1', 'B1', 'C1'])).to be true
+      expect(@board.valid_placement?(@cruiser, ['A2', 'A3', 'A4'])).to be true
+      expect(@board.valid_placement?(@submarine, ['C4', 'D4'])).to be true
+      expect(@board.valid_placement?(@submarine, ['A4', 'B4'])).to be true
+      expect(@board.valid_placement?(@submarine, ['B2', 'C2'])).to be true
       expect(@board.valid_placement?(@submarine, ['D4', 'D5'])).to be false
     end
   end
@@ -58,10 +59,16 @@ RSpec.describe Board do
   end
 
   #overlap? test
-  xit 'can determine if ships are overlapping' do
+  it 'can determine if ships are overlapping' do
     @board.place(@cruiser, ['A1', 'A2', 'A3'])
-
-    expect(@board.valid_placement?(@submarine, ['A1', 'B1'])).to be false
+    valid = @board.valid_placement?(@submarine, ["A1", "B1"])
+    valid_2 = @board.valid_placement?(@submarine, ["A1", "A2"])
+    valid_3 = @board.valid_placement?(@submarine, ["A3", "A4"])
+    valid_4 = @board.valid_placement?(@submarine, ["B3", "B4"])
+    expect(valid).to eq(false)
+    expect(valid_2).to eq(false)
+    expect(valid_3).to eq(false)
+    expect(valid_4).to eq(true)
   end
   
   describe '#render' do

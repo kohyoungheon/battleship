@@ -26,72 +26,85 @@ class Board
   def valid_coordinate?(cell)
     @cells.keys.any?(cell)
   end
-
+  
   def coordinate_letters(coordinates)
     coordinates.map do |coordinate|
       coordinate[0]
     end
   end
-
+  
   def coordinate_numbers(coordinates)
     coordinates.map do |coordinate|
       coordinate[1].to_i
     end
   end
-
-
+  
   def place(ship, coordinates)
-    coordinates.each do |coordinate|
-      @cells[coordinate].place_ship(ship)
+    if valid_placement?(ship,coordinates)
+      coordinates.each do |coordinate|
+        @cells[coordinate].place_ship(ship)
+      end
     end
+    false
   end
-
   
   def valid_placement?(ship,coord_array)
     if ship.length != coord_array.length
       return false
     end
-   
+    
     if coord_array.each do |coord|
       if @cells.keys.include?(coord)
         next
       end
       return false
     end
-    first_coord_char_ord = coord_array[0][0].ord #=> 65
-    first_coord_number_ord = coord_array[0][1].ord #=> 1
-    
-    if ship.length == 3
 
-      if (coord_array[1][0].ord ==  first_coord_char_ord + 1) && (coord_array[2][0].ord == first_coord_char_ord + 2)
-        if (first_coord_number_ord == coord_array[1][1]) && (first_coord_number_ord == coord_array[2][1])
+    coord_array.each do |coord|
+      if @cells[coord].ship
+        return false
+      end
+      next
+    end
+
+    
+    first_coord_char_ord = coord_array[0][0].ord #=> 65
+    first_coord_number_ord = coord_array[0][1].to_i #=> 1
+    if ship.length == 3
+      #Checks if letters match and numbers are consecutive
+      if (first_coord_char_ord == coord_array[1][0].ord) && (first_coord_char_ord == coord_array[2][0].ord)
+        if (first_coord_number_ord == (coord_array[1][1].to_i - 1)) && (first_coord_number_ord == (coord_array[2][1].to_i - 2))
           return true
         end
       end
-      if (coord_array[1][1].ord == first_coord_number_ord) && (coord_array[2][1].ord == first_coord_number_ord)
-        if (first_coord_char_ord == (coord_array[1][0].ord-1)) && (first_coord_char_ord == (coord_array[2][0].ord-2))
+      #Checks if letters are consecutive and numbers match
+      if (first_coord_char_ord == (coord_array[1][0].ord - 1)) && (first_coord_char_ord == (coord_array[2][0].ord - 2))
+        if (first_coord_number_ord == coord_array[1][1].to_i) && (first_coord_number_ord == (coord_array[2][1].to_i))
           return true
         end
       end
       false
 
     elsif ship.length == 2
-
-      if coord_array[1][0].ord ==  first_coord_char_ord
-        if first_coord_number_ord == (coord_array[1][1].ord - 1)
+      #Checks if letters match and numbers are consecutive.
+      if first_coord_char_ord == coord_array[1][0].ord
+        if first_coord_number_ord == (coord_array[1][1].to_i - 1)
           return true
         end
       end
-      #checks numbers
-      if coord_array[1][1].ord == first_coord_number_ord
-        if first_coord_char_ord == (coord_array[1][0].ord - 1)
+      #Checks if letters are consecutive and numbers match.
+      if first_coord_char_ord == (coord_array[1][0].ord - 1)
+        if first_coord_number_ord == (coord_array[1][1].to_i)
           return true
         end
       end
       false
       end
-      
-       def render(default = false)
+    end
+  end
+  
+
+  def render(default = false)
     if default == true
       "  1 2 3 4 \n" +
       "A #{@cells["A1"].render(true)} #{@cells["A2"].render(true)} #{@cells["A3"].render(true)} #{@cells["A4"].render(true)} \n" +
@@ -104,8 +117,6 @@ class Board
       "B #{@cells["B1"].render} #{@cells["B2"].render} #{@cells["B3"].render} #{@cells["B4"].render} \n" +
       "C #{@cells["C1"].render} #{@cells["C2"].render} #{@cells["C3"].render} #{@cells["C4"].render} \n" +
       "D #{@cells["D1"].render} #{@cells["D2"].render} #{@cells["D3"].render} #{@cells["D4"].render} \n"
-      
-
     end
   end
 end
