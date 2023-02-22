@@ -34,16 +34,15 @@ class Game
       elsif @player.board.cells[cell].ship != nil
         puts "Computer: 'My shot on #{cell} was a hit.'"
         if @player.board.cells[cell].ship.sunk?
-          puts "Computer: 'I sunk your #{@player.cells[cell].ship.name}!'"
+          puts "Computer: 'I sunk your #{@player.board.cells[cell].ship.name}!'"
         end
       end
     end
   
     def computer_turn
-      # require 'pry'; binding.pry
       cell = @player.board.cells.values.sample(1)
-      until cell[0].fired_upon? == false do
-        cell = @player.board.values.sample(1)
+      if cell[0].fired_upon == true
+        return computer_turn
       end
       computer_fire(cell[0].coordinate)
       cell[0].coordinate
@@ -93,17 +92,21 @@ class Game
 
     def player_turn
       user_fired = gets.chomp.upcase.strip
-      if @computer.board.valid_coordinate?(user_fired)
+      if @computer.board.valid_coordinate?(user_fired) &&  @computer.board.cells[user_fired].fired_upon? == false
         @computer.board.cells[user_fired].fire_upon
         if @computer.board.cells[user_fired].ship
-          puts "You got a hit!"
+          puts "Your shot on #{user_fired} was a hit!"
+          if @computer.board.cells[user_fired].ship.sunk?
+            puts "You sunk my ship!"
+          end
+
         else
-          puts "You missed!"
+          puts "Your shot on #{user_fired} missed!"
         end
         
       else
         puts "Please enter a valid coordinate."
-        return turn
+        return player_turn
       end
     end
 
@@ -133,7 +136,7 @@ class Game
     player_turn
     computer_turn
 
-    puts @computer.board.render
+    puts @computer.board.render(true)
     puts @player.board.render(true)
 
     player_turn
@@ -141,6 +144,50 @@ class Game
     puts @computer.board.render
     puts @player.board.render(true)
     
+    player_turn
+    computer_turn
+    puts @computer.board.render
+    puts @player.board.render(true)
+    player_turn
+    computer_turn
+    puts @computer.board.render
+    puts @player.board.render(true)
+    player_turn
+    computer_turn
+    puts @computer.board.render
+    puts @player.board.render(true)
+    player_turn
+    computer_turn
+    puts @computer.board.render
+    puts @player.board.render(true)
+    player_turn
+    computer_turn
+    puts @computer.board.render
+    puts @player.board.render(true)
+    player_turn
+    computer_turn
+    puts @computer.board.render
+    puts @player.board.render(true)
+    player_turn
+    computer_turn
+    puts @computer.board.render
+    puts @player.board.render(true)
+    player_turn
+    computer_turn
+    puts @computer.board.render
+    puts @player.board.render(true)
+    player_turn
+    computer_turn
+    puts @computer.board.render
+    puts @player.board.render(true)
+    player_turn
+    computer_turn
+    puts @computer.board.render
+    puts @player.board.render(true)
+    player_turn
+    computer_turn
+    puts @computer.board.render
+    puts @player.board.render(true)
     player_turn
     computer_turn
     puts @computer.board.render

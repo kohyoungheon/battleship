@@ -3,6 +3,7 @@ class Cell
               :ship, 
               :fired_upon,
               :status
+  attr_writer :ship
 
   def initialize(coordinate)
     @coordinate = coordinate
@@ -24,13 +25,16 @@ class Cell
   end
 
   def fire_upon
-    @fired_upon = true
-    if @ship
-      @ship.health -= 1
-      @status = "H"
-    else
-      @status = "M"
+    if @status == "H" || "M" || "X"
+      @fired_upon = true
+      if @ship
+        @ship.health -= 1
+        @status = "H"
+      else
+        @status = "M"
+      end
     end
+    puts
   end
 
   def render(default = false)
