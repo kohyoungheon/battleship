@@ -19,11 +19,11 @@ RSpec.describe Game do
     end
   end
 
-  # describe "#welcome_message" do
-  #   it "displays the welcome message" do
-  #     expect(@game.welcome_message).to eq(false)
-  #   end
-  # end
+  describe "#welcome_message" do
+    it "displays the welcome message" do
+      expect(@game.welcome_message).to eq(false)
+    end
+  end
 
   describe "#computer_placement" do
     it "places the computer's ship" do
@@ -48,4 +48,27 @@ RSpec.describe Game do
   #     @game.player_place_sub
   #   end
   # end
+
+  describe "#valid?" do
+    it "returns a valid coordinate" do
+      expect(@game.valid?(@cruiser)).to be_an_instance_of(Array)
+      expect(@game.valid?(@sub)).to be_an_instance_of(Array)
+      expect(@game.valid?(@cruiser).length).to eq(3)
+      expect(@game.valid?(@sub).length).to eq(2)
+
+      cruiser_coord = @game.valid?(@cruiser)
+      sub_coord = @game.valid?(@sub)
+
+      expect(@player.board.render(true).include?("S")).to eq(false)
+      @player.board.place(@cruiser,cruiser_coord)
+      expect(@player.board.render(true).include?("S")).to eq(true)
+
+      @player.clear_board
+
+      expect(@player.board.render(true).include?("S")).to eq(false)
+      @player.board.place(@sub,sub_coord)
+      expect(@player.board.render(true).include?("S")).to eq(true)
+
+    end
+  end
 end
