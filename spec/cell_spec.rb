@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe '#initialize' do
+RSpec.describe '#initialize' do
   it 'can initialize' do
     cell = Cell.new("A1")
 
@@ -92,7 +92,7 @@ describe '#initialize' do
 
       @cell_2.fire_upon
       expect(@cell_2.render).to eq("H")
-      expect(@cell_2.render(true)).to eq("S")
+      expect(@cell_2.render(true)).to eq("H")
     end
 
     it 'renders X if ship is sunk' do
