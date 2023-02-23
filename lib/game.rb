@@ -1,11 +1,11 @@
 class Game
-  attr_reader :player, :board
+  attr_reader :player, :computer
 
   def initialize(player,computer)
     @player = player
     @computer = computer
   end
-#y
+
   def welcome_message
     puts "Welcome to BATTLESHIP"
     puts "Enter p to play. Enter q to quit."
@@ -13,7 +13,7 @@ class Game
     play if choice == 'p'
     false
   end
-#i
+
   def valid?(ship)
     coord_array = []
     until @computer.board.valid_placement?(ship, coord_array) do
@@ -21,24 +21,23 @@ class Game
     end
   coord_array
   end
-#y
+
   def computer_placement(ship)
     @computer.board.place(ship, valid?(ship))
   end
 
-#i
   def computer_fire(cell)
     @player.board.cells[cell].fire_upon
     if @player.board.cells[cell].ship == nil
-      puts "Computer: 'My shot on #{cell} was a miss.'"
+      puts "COMPUTER: 'My shot on #{cell} was a miss.'"
     elsif @player.board.cells[cell].ship != nil
-      puts "Computer: 'My shot on #{cell} was a hit.'"
+      puts "COMPUTER: 'My shot on #{cell} was a hit.'"
       if @player.board.cells[cell].ship.sunk?
-        puts "Computer: 'I sunk your #{@player.board.cells[cell].ship.name}!'"
+        puts "COMPUTER: 'I sunk your #{@player.board.cells[cell].ship.name}!'"
       end
     end
   end
-  #y
+  
   def computer_turn
     cell = @player.board.cells.values.sample(1)
     if cell[0].fired_upon == true
@@ -47,7 +46,7 @@ class Game
     computer_fire(cell[0].coordinate)
     cell[0].coordinate
   end
-#i
+
   def player_place_cruiser
     user_cruiser = Ship.new("Cruiser",3)
     puts "Enter the squares for the Cruiser (3 spaces):"
@@ -61,7 +60,7 @@ class Game
       return player_place_cruiser
     end
   end
-#y
+
   def player_place_sub
     user_sub = Ship.new("Submarine",2)
     puts "Enter the squares for the Submarine (2 spaces):"
@@ -75,7 +74,7 @@ class Game
     return player_place_sub
     end
   end
-#i
+
   def player_turn
     user_fired = gets.chomp.upcase.strip
     if @computer.board.valid_coordinate?(user_fired) &&  @computer.board.cells[user_fired].fired_upon? == false
@@ -83,10 +82,10 @@ class Game
       if @computer.board.cells[user_fired].ship
         puts "Your shot on #{user_fired} was a hit!"
         if @computer.board.cells[user_fired].ship.sunk?
-          puts "You sunk my ship!"
+          puts "COMPUTER: You sunk my #{computer.board.cells[user_fired].ship.name}!"
         end
       else
-        puts "Your shot on #{user_fired} missed!"
+        puts "COMPUTER: Your shot on #{user_fired} missed!"
       end
       
     else
@@ -98,17 +97,22 @@ class Game
       return player_turn
     end
   end
-#y
+
+  def display_ascii_art(txtfile)
+    puts File.read(txtfile)
+  end
+
   def main_menu
-    puts "Welcome to BATTLESHIP!"
-    puts "Enter p to play. Enter q to quit."
+    display_ascii_art("welcome.txt")
+    display_ascii_art("battleship.txt")
+    puts "\nEnter p to play. Enter q to quit."
     choice = gets.chomp.downcase
     if choice != "p"
       puts "Okay bye!"
       exit
     end
   end
-#i
+
   def play
     main_menu
 
@@ -116,9 +120,9 @@ class Game
     comp_sub = Ship.new("Submarine",2)
     computer_placement(comp_cruiser)
     computer_placement(comp_sub)
-    puts "I have laid out my ships on the grid."
+    puts "\nI have laid out my ships on the grid."
     puts "You now need to lay out your two ships."
-    puts "The Cruiser is three units long and the Submarine is two units long."
+    puts "The Cruiser is three units long and the Submarine is two units long.\n"
     puts @player.board.render
 
     player_place_cruiser
