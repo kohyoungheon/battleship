@@ -89,11 +89,7 @@ class Game
       end
       
     else
-      puts "Please enter a valid coordinate. (Press q to quit)"
-      if user_fired = "q"
-        exit
-      end
-
+      puts "Please enter a valid coordinate"
       return player_turn
     end
   end
