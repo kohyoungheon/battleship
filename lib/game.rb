@@ -1,9 +1,15 @@
 class Game
-  attr_reader :player, :board
+  attr_reader :player, 
+              :computer,
+              :comp_cruiser,
+              :comp_sub
 
-  def initialize(player,computer)
+  def initialize(player, computer)
     @player = player
     @computer = computer
+    @comp_cruiser = Ship.new('Cruiser', 3)
+    @comp_sub = Ship.new('Submarine', 2)
+
   end
 #y
   def welcome_message
