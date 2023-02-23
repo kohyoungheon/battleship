@@ -5,7 +5,7 @@ class Game
     @player = player
     @computer = computer
   end
-
+#y
   def welcome_message
     puts "Welcome to BATTLESHIP"
     puts "Enter p to play. Enter q to quit."
@@ -13,7 +13,7 @@ class Game
     play if choice == 'p'
     false
   end
-
+#i
   def valid?(ship)
     coord_array = []
     until @computer.board.valid_placement?(ship, coord_array) do
@@ -21,12 +21,12 @@ class Game
     end
   coord_array
   end
-
+#y
   def computer_placement(ship)
     @computer.board.place(ship, valid?(ship))
   end
 
-
+#i
   def computer_fire(cell)
     @player.board.cells[cell].fire_upon
     if @player.board.cells[cell].ship == nil
@@ -38,7 +38,7 @@ class Game
       end
     end
   end
-  
+  #y
   def computer_turn
     cell = @player.board.cells.values.sample(1)
     if cell[0].fired_upon == true
@@ -47,7 +47,7 @@ class Game
     computer_fire(cell[0].coordinate)
     cell[0].coordinate
   end
-
+#i
   def player_place_cruiser
     user_cruiser = Ship.new("Cruiser",3)
     puts "Enter the squares for the Cruiser (3 spaces):"
@@ -61,7 +61,7 @@ class Game
       return player_place_cruiser
     end
   end
-
+#y
   def player_place_sub
     user_sub = Ship.new("Submarine",2)
     puts "Enter the squares for the Submarine (2 spaces):"
@@ -75,7 +75,7 @@ class Game
     return player_place_sub
     end
   end
-
+#i
   def player_turn
     user_fired = gets.chomp.upcase.strip
     if @computer.board.valid_coordinate?(user_fired) &&  @computer.board.cells[user_fired].fired_upon? == false
@@ -98,7 +98,7 @@ class Game
       return player_turn
     end
   end
-
+#y
   def main_menu
     puts "Welcome to BATTLESHIP!"
     puts "Enter p to play. Enter q to quit."
@@ -108,7 +108,7 @@ class Game
       exit
     end
   end
-
+#i
   def play
     main_menu
 
