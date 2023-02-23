@@ -131,10 +131,6 @@ class Game
     puts "******************************************"
     puts "THE GAME IS NOW STARTING!"
     puts "******************************************"
-    puts "=============COMPUTER BOARD============="
-    puts @computer.board.render
-    puts "==============PLAYER BOARD=============="
-    puts @player.board.render
     puts "Where would you like to fire?"
     puts "(Press q to quit)"
 
