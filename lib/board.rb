@@ -1,5 +1,4 @@
 class Board
-
   attr_reader :cells
   
   def initialize
@@ -19,26 +18,14 @@ class Board
       'D1' => Cell.new('D1'),
       'D2' => Cell.new('D2'),
       'D3' => Cell.new('D3'),
-      'D4' => Cell.new('D4')
+      'D4' => Cell.new('D4'),
       }
   end
 
   def valid_coordinate?(cell)
     @cells.keys.any?(cell)
   end
-  
-  def coordinate_letters(coordinates)
-    coordinates.map do |coordinate|
-      coordinate[0]
-    end
-  end
-  
-  def coordinate_numbers(coordinates)
-    coordinates.map do |coordinate|
-      coordinate[1].to_i
-    end
-  end
-  
+
   def place(ship, coordinates)
     if valid_placement?(ship,coordinates)
       coordinates.each do |coordinate|
@@ -67,7 +54,6 @@ class Board
       next
     end
 
-    
     first_coord_char_ord = coord_array[0][0].ord
     first_coord_number_ord = coord_array[0][1].to_i
     if ship.length == 3
@@ -103,7 +89,6 @@ class Board
     end
   end
   
-
   def render(default = false)
     if default == true
       "  1 2 3 4 \n" +
