@@ -55,6 +55,11 @@ RSpec.describe Board do
       expect(@board.cells['A2'].ship).to eq(@cruiser)
       expect(@board.cells['A3'].ship).to eq(@cruiser)
       expect(@board.cells['A3'].ship).to eq(@board.cells['A2'].ship)
+
+      @board.place(@submarine, ['B1', 'B2'])
+      expect(@board.cells['B1'].ship).to eq(@submarine)
+      expect(@board.cells['B2'].ship).to eq(@submarine)
+      expect(@board.cells['B1'].ship).to eq(@board.cells['B2'].ship)
     end
   end
 
