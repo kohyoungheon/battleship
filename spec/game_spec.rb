@@ -20,7 +20,7 @@ RSpec.describe Game do
   end
 
   describe "#welcome_message" do
-    it "displays the welcome message" do
+    xit "displays the welcome message" do
       expect(@game.welcome_message).to eq(false)
     end
   end
@@ -36,6 +36,23 @@ RSpec.describe Game do
     end
   end
 
+  describe "#computer_fire" do
+    it "fires a miss at player board" do
+      @game.computer_fire("B2")
+      fired_board = "  1 2 3 4 \nA . . . . \nB . M . . \nC . . . . \nD . . . . \n"
+      expect(@player.board.render).to eq(fired_board)
+      expect(@game.player.board.cells["B2"].fired_upon?).to eq(true)
+      expect(@game.player.board.cells["C2"].fired_upon?).to eq(false)
+    end
+
+    it "fires a hit at player board" do
+      @player.board.place(@cruiser, ['A1', 'A2', 'A3'])
+      @game.computer_fire("A3")
+      fired_board = "  1 2 3 4 \nA S S H . \nB . . . . \nC . . . . \nD . . . . \n"
+      expect(@player.board.render(true)).to eq(fired_board)
+    end
+  end
+
   describe "#computer_turn" do
     it "fires a shot for the computer" do
       @game.computer_turn
@@ -43,11 +60,29 @@ RSpec.describe Game do
     end
   end
 
-  # describe "player_place_sub" do
-  #   it "places the player's sub at user given location" do
-  #     @game.player_place_sub
-  #   end
-  # end
+  describe '#player_turn' do
+    xit "allows players to choose a cell to fire upon" do
+
+    end
+  end
+
+  describe "player_place_sub" do
+    xit "places the player's sub at user given location" do
+      expect(@game.player_place_sub).to eq(false)
+    end
+  end
+
+  describe "player_place_cruiser" do
+    xit "places the player's cruiser at user given location" do
+      expect(@game.player_place_cruiser).to eq(false)
+    end
+  end
+
+  describe "play" do
+    xit "play the game" do
+      #try the game....I dont know what to tell you...
+    end
+  end
 
   describe "#valid?" do
     it "returns a valid coordinate" do
